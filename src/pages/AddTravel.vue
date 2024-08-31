@@ -50,7 +50,7 @@ export default {
         <textarea v-model="travel.description" class="form-control" id="description" rows="3" required></textarea>
       </div> -->
       <div class="mb-3">
-        <label for="coverImage" class="form-label">URL Immagine di Copertura</label>
+        <label for="coverImage" class="form-label">URL Immagine di Copertina</label>
         <input type="url" v-model="travel.coverImage" class="form-control" id="coverImage" required />
       </div>
       <!-- <div class="mb-3">
