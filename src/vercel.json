@@ -1,6 +1,8 @@
 {
-  "rewrites": [{ 
-  "source": "/add-travel", "destination": "/" 
-
-  }]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }
