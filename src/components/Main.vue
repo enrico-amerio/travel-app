@@ -32,7 +32,7 @@ export default {
 <template>
   <div class="container text-center">
     <h1 class="py-4">Diario di Viaggio</h1>
-    <router-link :to="{ name: 'addTravel' }" class="button-19">Nuova Vacanza</router-link>
+    <router-link :to="{ name: 'addTravel' }" class="custom-btn">Nuova Vacanza</router-link>
   </div>
   <div class="wrapper">
     <div class="item" v-for="travel in travels" :key="travel.id">
@@ -50,75 +50,6 @@ export default {
 </template>
 
 <style scoped>
-.link {
-  text-decoration: none;
-  color: black;
-}
-.button-19 {
-  text-decoration: none;
-  appearance: button;
-  background-color: #1899D6;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: din-round, sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .8px;
-  line-height: 20px;
-  margin: 0;
-  outline: none;
-  overflow: visible;
-  padding: 13px 16px;
-  text-align: center;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  transform: translateZ(0);
-  transition: filter .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
- 
-}
-
-.button-19:after {
-  background-clip: padding-box;
-  background-color: #1CB0F6;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
-}
-
-.button-19:main,
-.button-19:focus {
-  user-select: auto;
-}
-
-.button-19:hover:not(:disabled) {
-  filter: brightness(1.1);
-  -webkit-filter: brightness(1.1);
-}
-
-.button-19:disabled {
-  cursor: auto;
-}
-
-.button-19:active {
-  border-width: 4px 0 0;
-  background: none;
-}
 .wrapper {
   width: 100%;
   padding: 0 2rem;
@@ -126,7 +57,7 @@ export default {
 }
 .polaroid-container {
   position: relative;
-  display: inline-block; /* Importante per mantenere la dimensione del contenitore */
+  display: inline-block; 
 }
 .polaroid {
   position: relative;
@@ -251,25 +182,25 @@ export default {
 
 @media (max-width: 768px) {
   .item {
-    width: 100%; /* Ogni polaroid occuperà tutta la larghezza disponibile */
+    width: 100%; 
     display: block;
     margin-top: 1rem;
-    transform: none; /* Rimuove la rotazione */
-    filter: none; /* Rimuove il filtro in scala di grigi */
+    transform: none; 
+    filter: none; 
   }
 
   .item:hover {
-    transform: none; /* Disabilita l'hover per dispositivi mobili */
+    transform: none; 
   }
 
   .polaroid {
-    margin: 0 auto; /* Centra la polaroid */
+    margin: 0 auto; 
     box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.2);
   }
 
   .polaroid > img {
-    width: 100%; /* Mantiene l'immagine adattata alla polaroid */
-    height: auto; /* Mantiene le proporzioni */
+    width: 100%; 
+    height: auto; 
   }
 }
 </style>

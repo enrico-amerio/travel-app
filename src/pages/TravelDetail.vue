@@ -86,7 +86,7 @@ export default {
             this.newPlaceDay.date = '';
             alert('Tappa aggiunta con successo!');
           } else {
-            alert('Impossibile ottenere le coordinate per l\'indirizzo fornito.');
+            alert('Inserire un indirizzo valido per continuare.');
           }
         } catch (error) {
           console.error('Errore nel recupero delle coordinate:', error);
@@ -97,7 +97,7 @@ export default {
       }
     },
     async getCoordinates(address, city) {
-      const apiKey = 'AIzaSyALXd8XSD9pP45eLG-0S6YLPdmD-mCN71E';  // Sostituisci con la tua chiave API di Google
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
       const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address + ', ' + city)}&key=${apiKey}`;
       try {
         const response = await axios.get(apiUrl);
@@ -181,22 +181,16 @@ export default {
 
 <template>
   <div class="container" v-if="travel">
-    <!-- Freccia per tornare alla homepage -->
     <router-link to="/" class="back-arrow">
       <i class="fas fa-arrow-left"></i> Torna alla Home
     </router-link>
     <h1 class="py-4 text-center">
       {{ travel.title }}
-      <!-- Bottone per aprire la modale -->
-      <button type="button" class="button-19 blue-btn ms-3" data-bs-toggle="modal" data-bs-target="#addPlaceModal">
+      <button type="button" class="custom-btn blue-btn ms-3" data-bs-toggle="modal" data-bs-target="#addPlaceModal">
         Aggiungi Tappa
       </button>
     </h1>
-    
-    <!-- Mappa -->
     <div id="map" style="height: 400px;" class="mb-4"></div>
-
-    <!-- Barra di percentuale completamento -->
     <div class="progress mb-4">
       <div
         class="progress-bar"
@@ -209,8 +203,6 @@ export default {
         {{ completionPercentage }}%
       </div>
     </div>
-
-    <!-- Visualizzazione dei giorni esistenti e delle tappe -->
     <div v-for="day in travel.days" :key="day.date" class="mb-4">
       <h2 class="text-center">{{ formatDate(day.date) }}</h2>
       <div v-for="place in day.places" :key="place.title" class="card mb-2">
@@ -221,32 +213,23 @@ export default {
           <div class="ms-5 col-md-6">
             <h3 class="my-4 my-md-0">{{ place.title }}</h3>
             <p class="card-text">{{ place.description }}</p>
-            
-            <!-- Note -->
             <div class="mb-3">
               <label for="placeNotes">Note:</label>
               <textarea class="form-control w-75 mt-3" v-model="place.notes" @change="saveTravel"></textarea>
             </div>
-            
-            <!-- Valutazione -->
             <div class="mb-3">
               <label for="placeRating">Valutazione:</label>
               <input type="range" class="form-range w-75 pt-3 ms-sm-0 ms-lg-2" min="0" max="5" step="1" id="customRange3" v-model="place.rating" @change="updateRating(place, $event.target.value)">
             </div>
-            
-            <!-- Visitato -->
             <div class="mb-3">
               <input type="checkbox" :checked="place.visited" @change="toggleVisited(place)">
               <label class="ms-2">Visitato</label>
             </div>
-
-            <!-- Rimuovi Tappa -->
-            <button @click="removePlace(day, place)" class="button-19 red-btn mt-2">Rimuovi Tappa</button>
+            <button @click="removePlace(day, place)" class="custom-btn red-btn mt-2">Rimuovi Tappa</button>
           </div>
         </div>
       </div>
     </div>
-    
     <div class="modal fade" id="addPlaceModal" tabindex="-1" aria-labelledby="addPlaceModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -284,7 +267,7 @@ export default {
                 <label for="placeRating" class="form-label">Valutazione (0-5)</label>
                 <input type="number" class="form-control" v-model="newPlace.rating" min="0" max="5" required>
               </div>
-              <button type="submit" class="button-19 blue-btn mb-3" data-bs-dismiss="modal">Aggiungi Tappa</button>
+              <button type="submit" class="custom-btn blue-btn mb-3" data-bs-dismiss="modal">Aggiungi Tappa</button>
             </form>
           </div>
         </div>
@@ -293,8 +276,6 @@ export default {
   </div>
 </template>
 
-
-
 <style scoped>
 .card-img{
   max-height: 300px;
@@ -302,36 +283,6 @@ export default {
 }
 .form-control{
   max-width: 90%;
-}
-.button-19 {
-  text-decoration: none;
-  appearance: button;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: din-round,sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: .8px;
-  line-height: 20px;
-  margin: 0;
-  outline: none;
-  overflow: visible;
-  padding: 13px 16px;
-  text-align: center;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  transform: translateZ(0);
-  transition: filter .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  
 }
 .blue-btn{
   background-color: #1899D6;
@@ -349,36 +300,5 @@ export default {
   background-color: #ff0000;
 
 }
-.button-19:after {
-  background-clip: padding-box;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
-}
 
-.button-19:main,
-.button-19:focus {
-  user-select: auto;
-}
-
-.button-19:hover:not(:disabled) {
-  filter: brightness(1.1);
-  -webkit-filter: brightness(1.1);
-}
-
-.button-19:disabled {
-  cursor: auto;
-}
-
-.button-19:active {
-  border-width: 4px 0 0;
-  background: none;
-}
 </style>
