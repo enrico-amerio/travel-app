@@ -16,7 +16,7 @@ const router = createRouter({
         component: TravelDetail,
     },
     {
-      path: "/add-travel", // Nuova rotta per aggiungere una vacanza
+      path: "/add-travel",
       name: "addTravel",
       component: AddTravel,
     }
